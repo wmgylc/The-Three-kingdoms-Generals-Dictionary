@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">三国人物辞典</string>
+    <string name="info_notification">您可以在带有下划线的输入框和各类控件中修改内容，并加以保存。点击图片可以拍摄或选择头像。这条信息卡片只会出现一次。</string>
+</resources>

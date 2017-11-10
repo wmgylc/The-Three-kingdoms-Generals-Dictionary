@@ -1,0 +1,242 @@
+<android.support.constraint.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/general_info_name"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/ic_account_box_white_48dp"
+        android:tint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/general_info_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/general_info_name"
+        android:layout_marginStart="15dp"
+        android:layout_toRightOf="@id/general_info_name"
+        android:text="姓名"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/general_info_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/general_info_name"
+        app:layout_constraintTop_toTopOf="@+id/general_info_name" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/general_info_name_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="61dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/general_info_age_and_sex"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="135dp"
+        android:src="@drawable/ic_accessibility_white_48dp"
+        android:tint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/general_info_age_and_sex_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/general_info_age_and_sex"
+        android:layout_marginStart="15dp"
+        android:layout_toRightOf="@id/general_info_age_and_sex"
+        android:text="性别"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/general_info_age_and_sex"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/general_info_age_and_sex"
+        app:layout_constraintTop_toTopOf="@+id/general_info_age_and_sex" />
+
+    <RadioGroup
+        android:id="@+id/radiogroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="175dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <RadioButton
+            android:id="@+id/radiogroup_man"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="男"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/radiogroup_woman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="女"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/radiogroup_others"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="其他或未知"
+            android:textSize="16sp" />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="230dp"
+        android:text="生卒年月"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/general_info_age_and_sex_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="255dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/general_info_country"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_group_white_48dp"
+        android:tint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/general_info_age_and_sex_content"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/general_info_country_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/general_info_country"
+        android:layout_marginStart="15dp"
+        android:layout_toRightOf="@id/general_info_country"
+        android:text="所属势力"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/general_info_country"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/general_info_country"
+        app:layout_constraintTop_toTopOf="@+id/general_info_country" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/general_info_country_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="355dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <ImageView
+        android:id="@+id/general_info_more"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_speaker_notes_white_48dp"
+        android:tint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/general_info_country_content"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/general_info_more_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/general_info_country"
+        android:layout_marginStart="15dp"
+        android:layout_toRightOf="@id/general_info_country"
+        android:text="更多信息"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/general_info_more"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/general_info_more"
+        app:layout_constraintTop_toTopOf="@+id/general_info_more" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/general_info_more_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="120dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="455dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+</android.support.constraint.ConstraintLayout>

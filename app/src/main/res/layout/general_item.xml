@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--在item直接显示的内容必须是不需要任何提醒就能看懂的内容-->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/general_image"
+        android:layout_margin="15dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/general_image"
+        android:layout_toRightOf="@+id/general_image"
+        android:text="测试姓名"
+        android:gravity="top|left"
+        android:paddingLeft="5dp"
+        android:textColor="#424242"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/country"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:text="测试所属势力"
+        android:textSize="14sp"
+        android:textColor="#424242"
+        android:paddingLeft="5dp"
+        android:layout_below="@+id/name"
+        android:layout_alignLeft="@+id/name"
+        android:layout_alignBottom="@id/general_image"/>
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/country"
+        android:layout_alignStart="@id/country"
+        android:paddingLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:text="人称卧龙先生，有经天纬地之才，鬼神不测之机。刘皇叔三顾茅庐，遂允出山相助。曾舌战群儒、借东风、智算华容、三气周瑜，辅佐刘备于赤壁之战大败曹操，更取得荆州为基本。后奉命率军入川，于定军山智激老黄忠，斩杀夏侯渊，败走曹操，夺取汉中。刘备伐吴失败，受遗诏托孤，安居平五路，七纵平蛮，六出祁山，鞠躬尽瘁，死而后已。其手摇羽扇，运筹帷幄的潇洒形象，千百年来已成为人们心中“智慧”的代名词。"
+        android:textSize="14sp"
+        android:maxLines="3"
+        android:ellipsize="end"
+        />
+
+    <ImageView
+        android:id="@+id/concerned"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_toRightOf="@id/name"
+        android:layout_alignTop="@id/name"
+        android:layout_alignBottom="@id/name"
+        android:layout_marginLeft="5dp" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="#bdbdbd"
+        android:layout_below="@+id/info"
+        android:layout_alignLeft="@+id/info"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="5dp"/>
+
+</RelativeLayout>
+
