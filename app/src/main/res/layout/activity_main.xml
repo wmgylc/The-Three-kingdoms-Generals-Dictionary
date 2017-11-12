@@ -40,7 +40,7 @@
             android:id="@+id/activity_main_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="invisible"/>
+            android:visibility="gone"/>
 
     </android.support.design.widget.AppBarLayout>
 

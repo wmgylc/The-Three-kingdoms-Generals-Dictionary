@@ -1,7 +1,6 @@
 package com.example.test;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,12 +16,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.test.Adapter.GeneralAdapter;
 import com.example.test.Adapter.SearchAdapter;
 import com.example.test.Adapter.ViewPagerAdapter;
 import com.example.test.DataBase.General;
@@ -95,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList, titles);
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.setOffscreenPageLimit(2);
 
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -141,9 +137,11 @@ public class MainActivity extends AppCompatActivity {
                     floatingActionButton.show();
                 } else if (position == 1) {
                     floatingActionButton.hide();
-                    //在MainActivity直接修改内容后，切换到关注列表需要实时刷新
-                    Intent intent1 = new Intent("RefreshConcernedList");
-                    sendBroadcast(intent1);
+
+                    //绝对不能添加广播，卡顿的原因所在
+
+//                    Intent intent1 = new Intent("RefreshConcernedList");
+//                    sendBroadcast(intent1);
                 }
             }
             @Override
@@ -155,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("TAG", "onResume");
+        //Log.d("TAG", "onResume");
         Intent intent = new Intent("Refresh");
         sendBroadcast(intent);
         Intent intent1 = new Intent("RefreshConcernedList");

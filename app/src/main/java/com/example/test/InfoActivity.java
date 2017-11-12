@@ -89,8 +89,6 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
 
     private String imagePath = null;
 
-    //private Bitmap bitmap = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -209,8 +207,6 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
             default:
         }
 
-        //String path = convertIconToString(bitmap);
-
         //如果来源是REC的话，已经new出过数据，这时候根据id找到这个数据进行更新。如果来源是FAB的话，新建一个数据。
         if (source.equals("REC")) {
             General general_current = DataSupport.find(General.class, currentId);
@@ -243,17 +239,7 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-    // TODO: 2017/11/11 使用真实路径传输图片，如果原图片删除，就会导致无法显示 
-//    public String convertIconToString(Bitmap bitmap) {
-//        //已经对没有图片修改进行了判断
-//        if (bitmap == null) {
-//            return null;
-//        }
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();// outputstream
-//        bitmap.compress(Bitmap.CompressFormat.PNG, 50, baos);
-//        byte[] appicon = baos.toByteArray();// 转为byte数组
-//        return Base64.encodeToString(appicon, Base64.DEFAULT);
-//    }
+    // TODO: 2017/11/11 使用真实路径传输图片，如果原图片删除，就会导致无法显示
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

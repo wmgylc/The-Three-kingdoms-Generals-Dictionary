@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,14 +17,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.test.Adapter.GeneralAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.test.Adapter.GeneralAdapter_BRVAH;
 import com.example.test.DataBase.General;
 import com.example.test.InfoActivity;
 import com.example.test.R;
 
 import org.litepal.crud.DataSupport;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,11 +35,9 @@ public class ConcernedGeneralFragment extends Fragment {
 
     private Context mContext;
 
-    private GeneralAdapter adapter;
+    private GeneralAdapter_BRVAH adapter_BRVAH;
 
-    private RecyclerView recyclerView;
-
-    private List<General> GeneralList = new ArrayList<>();
+    private List<General> GeneralList = DataSupport.where("isConcerned > ?", "0").find(General.class);
 
     private RefreshConcernedListReceiver refreshConcernedListReceiver;
 
@@ -48,22 +45,18 @@ public class ConcernedGeneralFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //Log.d("TAG", "onCreateView");
-        recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
+        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
-        adapter = new GeneralAdapter(GeneralList);
-        recyclerView.setAdapter(adapter);
-        return recyclerView;
-    }
+        adapter_BRVAH = new GeneralAdapter_BRVAH(R.layout.item, GeneralList);
+        recyclerView.setAdapter(adapter_BRVAH);
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        //Log.d("TAG", "onActivityCreated");
-        super.onActivityCreated(savedInstanceState);
+        adapter_BRVAH.setEmptyView(R.layout.empty_view, container);
 
-        adapter.setOnItemClickListener(new GeneralAdapter.onItemClickListener() {
+        adapter_BRVAH.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onClick(View view, int position, int id) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                int id = (int) view.getTag();
                 General general = DataSupport.find(General.class, id);
                 String path = general.getImagePath();
                 String name = general.getName();
@@ -84,9 +77,12 @@ public class ConcernedGeneralFragment extends Fragment {
                 intent.putExtra("ID", id);
                 startActivity(intent);
             }
+        });
 
+        adapter_BRVAH.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
             @Override
-            public void onLongClick(View view, int position, final int id) {
+            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                final int id = (int) view.getTag();
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
                         .setCancelable(true)
                         .setMessage("将该项移除出关注列表？")
@@ -98,8 +94,8 @@ public class ConcernedGeneralFragment extends Fragment {
                                 general.save();
                                 GeneralList = DataSupport.where("isConcerned > ?", "0").find(General.class);
                                 //Log.d("TAG", "onResume" + GeneralList.size());
-                                adapter.setAdapterData(GeneralList);
-                                adapter.notifyDataSetChanged();
+                                adapter_BRVAH.setNewData(GeneralList);
+                                adapter_BRVAH.notifyDataSetChanged();
                                 Intent intent = new Intent("Refresh");
                                 //通知将士列表刷新
                                 getContext().sendBroadcast(intent);
@@ -107,8 +103,18 @@ public class ConcernedGeneralFragment extends Fragment {
                         })
                         .setNegativeButton("取消", null);
                 builder.show();
+                return false;
             }
         });
+
+        return recyclerView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        Log.d("TAG", "onActivityCreated");
+        super.onActivityCreated(savedInstanceState);
+
     }
 
     @Override
@@ -127,9 +133,10 @@ public class ConcernedGeneralFragment extends Fragment {
     public class RefreshConcernedListReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            //Log.d("TAG", "onReceive");
             GeneralList = DataSupport.where("isConcerned > ?", "0").find(General.class);
-            adapter.setAdapterData(GeneralList);
-            adapter.notifyDataSetChanged();
+            adapter_BRVAH.setNewData(GeneralList);
+            adapter_BRVAH.notifyDataSetChanged();
         }
     }
 

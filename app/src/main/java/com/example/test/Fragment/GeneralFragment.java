@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.test.Adapter.GeneralAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.test.Adapter.GeneralAdapter_BRVAH;
 import com.example.test.DataBase.General;
 import com.example.test.InfoActivity;
 import com.example.test.R;
@@ -35,7 +35,7 @@ public class GeneralFragment extends Fragment {
 
     private Context mContext;
 
-    private GeneralAdapter adapter;
+    private GeneralAdapter_BRVAH adapter_BRVAH;
 
     private RecyclerView recyclerView;
 
@@ -51,17 +51,20 @@ public class GeneralFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        //Log.d("TAG", "onCreateView");
         recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
         GeneralList = DataSupport.findAll(General.class);
-        adapter = new GeneralAdapter(GeneralList);
-        recyclerView.setAdapter(adapter);
+        adapter_BRVAH = new GeneralAdapter_BRVAH(R.layout.item, GeneralList);
+        recyclerView.setAdapter(adapter_BRVAH);
 
-        adapter.setOnItemClickListener(new GeneralAdapter.onItemClickListener() {
+        adapter_BRVAH.setEmptyView(R.layout.empty_view, container);
+
+        adapter_BRVAH.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onClick(View view, int position, int id) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                //获得id
+                int id = (int) view.getTag();
                 General general = DataSupport.find(General.class, id);
                 String path = general.getImagePath();
                 String name = general.getName();
@@ -82,10 +85,12 @@ public class GeneralFragment extends Fragment {
                 intent.putExtra("ID", id);
                 startActivity(intent);
             }
+        });
 
+        adapter_BRVAH.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
             @Override
-            public void onLongClick(View view, final int position, final int id) {
-
+            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, final int position) {
+                final int id = (int) view.getTag();
                 final int concerned = DataSupport.find(General.class, id).getConcerned();
                 final Intent intent = new Intent("RefreshConcernedList");
 
@@ -103,11 +108,11 @@ public class GeneralFragment extends Fragment {
                                         notifyChange();
                                         recyclerView.scrollToPosition(position);
                                         break;
-                                    // TODO: 2017/11/8 局部刷新 
+                                    // TODO: 2017/11/8 局部刷新
                                     case 1:
                                         GeneralList.remove(position);
-                                        adapter.notifyItemRemoved(position);
-                                        adapter.notifyItemRangeChanged(position, adapter.getItemCount());
+                                        adapter_BRVAH.notifyItemRemoved(position);
+                                        adapter_BRVAH.notifyItemRangeChanged(position, adapter_BRVAH.getItemCount());
                                         DataSupport.delete(General.class, id);
                                         getContext().sendBroadcast(intent);
                                         break;
@@ -117,8 +122,8 @@ public class GeneralFragment extends Fragment {
                         })
                         .setNegativeButton("取消", null);
                 builder.show();
+                return false;
             }
-
         });
 
         return recyclerView;
@@ -137,8 +142,8 @@ public class GeneralFragment extends Fragment {
     public void notifyChange() {
         //默认按照id排序，不设条件搜索
         GeneralList = DataSupport.findAll(General.class);
-        adapter.setAdapterData(GeneralList);
-        adapter.notifyDataSetChanged();
+        adapter_BRVAH.setNewData(GeneralList);
+        adapter_BRVAH.notifyDataSetChanged();
         //将焦点移动到最下方 && 默认新添加的都在最下方，如果后期加入过滤方式就需要判断
         //recyclerView.scrollToPosition(GeneralList.size() - 1);
     }
