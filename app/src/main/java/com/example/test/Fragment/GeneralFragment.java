@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,9 +19,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.test.Activity.MainActivity;
 import com.example.test.Adapter.GeneralAdapter_BRVAH;
 import com.example.test.DataBase.General;
-import com.example.test.InfoActivity;
+import com.example.test.Activity.InfoActivity;
 import com.example.test.R;
 
 import org.litepal.crud.DataSupport;
@@ -39,7 +42,7 @@ public class GeneralFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
-    private List<General> GeneralList = new ArrayList<>();
+    private List<General> GeneralList = DataSupport.findAll(General.class);
 
     private RefreshReceiver refreshReceiver;
 
@@ -54,7 +57,16 @@ public class GeneralFragment extends Fragment {
         recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
-        GeneralList = DataSupport.findAll(General.class);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        if (!preferences.getBoolean("CREATE", false)) {
+            initData();
+        }
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+        editor.putBoolean("CREATE", true);
+        editor.apply();
+
+
         adapter_BRVAH = new GeneralAdapter_BRVAH(R.layout.item, GeneralList);
         recyclerView.setAdapter(adapter_BRVAH);
 
@@ -66,6 +78,7 @@ public class GeneralFragment extends Fragment {
                 //获得id
                 int id = (int) view.getTag();
                 General general = DataSupport.find(General.class, id);
+                int image = general.getImageRes();
                 String path = general.getImagePath();
                 String name = general.getName();
                 int sex = general.getSex();
@@ -74,7 +87,8 @@ public class GeneralFragment extends Fragment {
                 String info = general.getInfo();
                 int concerned = general.getConcerned();
                 Intent intent = new Intent(getContext(), InfoActivity.class);
-                intent.putExtra("IMAGE", path);
+                intent.putExtra("IMAGE_RES", image);
+                intent.putExtra("IMAGE_URI", path);
                 intent.putExtra("NAME", name);
                 intent.putExtra("SEX", sex);
                 intent.putExtra("AGE", age);
@@ -138,6 +152,16 @@ public class GeneralFragment extends Fragment {
         refreshReceiver = new RefreshReceiver();
         context.registerReceiver(refreshReceiver, intentFilter);
     }
+
+    private void initData() {
+        General general = new General(R.drawable.liubei, null, "刘备", 1, "161年－223年", "蜀国",
+                "刘备是汉朝的宗室，汉中山靖王刘胜的后代。章武三年（223年），刘备病逝于白帝城，终年63岁，谥号昭烈皇帝，庙号烈祖（一说太宗） ，葬惠陵。后世有众多文艺作品以其为主角，在成都武侯祠有昭烈庙为纪念。"
+        , 0);
+        general.save();
+        GeneralList.add(general);
+        //notifyChange();
+    }
+
 
     public void notifyChange() {
         //默认按照id排序，不设条件搜索

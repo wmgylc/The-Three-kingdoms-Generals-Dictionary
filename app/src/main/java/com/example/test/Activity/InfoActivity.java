@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.Activity;
 
 import android.Manifest;
 import android.content.ContentUris;
@@ -24,7 +24,6 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,21 +34,13 @@ import android.widget.Toast;
 
 
 import com.example.test.DataBase.General;
+import com.example.test.R;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.litepal.crud.DataSupport;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-
-
+// TODO: 2017/11/14 添加内容后滚动到对应位置
 public class InfoActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private CollapsingToolbarLayout collapsingToolbarLayout;
-
-    private Toolbar toolbar;
-
-    private CardView cardView;
 
     private String source;
 
@@ -107,12 +98,17 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
             countryEditText.setHint("暂无所属势力");
             moreInfoEditText.setHint("暂无更多信息");
         } else if (source.equals("REC")) {
-            String path=intent.getStringExtra("IMAGE");
+            String path=intent.getStringExtra("IMAGE_URI");
+            int image = intent.getIntExtra("IMAGE_RES", 0);
             if (path != null) {
                 //如果path == null，说明没有设置图片
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 Bitmap bitmap = BitmapFactory.decodeFile(path);
                 imageView.setImageBitmap(bitmap);
+            } else if (image != 0) {
+                //考虑初始设置的十个将士的图片调用的是图片资源
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                imageView.setImageResource(image);
             }
             isConcerned = intent.getIntExtra("CONCERNED", 0);
             if (isConcerned == 0) {
@@ -160,9 +156,9 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void initData() {
-        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
-        toolbar = findViewById(R.id.general_info_toolbar);
-        cardView = findViewById(R.id.InfoActivity_card);
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
+        Toolbar toolbar = findViewById(R.id.general_info_toolbar);
+        CardView cardView = findViewById(R.id.InfoActivity_card);
         imageView = findViewById(R.id.general_info_image);
         floatingActionButton = findViewById(R.id.general_info_fab);
         radioGroup = findViewById(R.id.radiogroup);
@@ -330,7 +326,7 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK) {
-                    String imagePath = handleImage(data);
+                    imagePath = handleImage(data);
                     displayImage();
                 }
                 break;

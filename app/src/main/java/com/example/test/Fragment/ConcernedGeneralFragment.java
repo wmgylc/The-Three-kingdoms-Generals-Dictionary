@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.test.Adapter.GeneralAdapter_BRVAH;
 import com.example.test.DataBase.General;
-import com.example.test.InfoActivity;
+import com.example.test.Activity.InfoActivity;
 import com.example.test.R;
 
 import org.litepal.crud.DataSupport;
@@ -44,7 +44,6 @@ public class ConcernedGeneralFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //Log.d("TAG", "onCreateView");
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
@@ -59,6 +58,7 @@ public class ConcernedGeneralFragment extends Fragment {
                 int id = (int) view.getTag();
                 General general = DataSupport.find(General.class, id);
                 String path = general.getImagePath();
+                int image = general.getImageRes();
                 String name = general.getName();
                 int sex = general.getSex();
                 String age = general.getAge();
@@ -66,7 +66,8 @@ public class ConcernedGeneralFragment extends Fragment {
                 String info = general.getInfo();
                 int concerned = general.getConcerned();
                 Intent intent = new Intent(getContext(), InfoActivity.class);
-                intent.putExtra("IMAGE", path);
+                intent.putExtra("IMAGE_URI", path);
+                intent.putExtra("IMAGE_RES", image);
                 intent.putExtra("NAME", name);
                 intent.putExtra("SEX", sex);
                 intent.putExtra("AGE", age);
@@ -112,14 +113,12 @@ public class ConcernedGeneralFragment extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Log.d("TAG", "onActivityCreated");
         super.onActivityCreated(savedInstanceState);
 
     }
 
     @Override
     public void onAttach(Context context) {
-        //Log.d("TAG", "onAttach");
         super.onAttach(context);
         mContext = context;
         IntentFilter intentFilter = new IntentFilter();
@@ -133,7 +132,6 @@ public class ConcernedGeneralFragment extends Fragment {
     public class RefreshConcernedListReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            //Log.d("TAG", "onReceive");
             GeneralList = DataSupport.where("isConcerned > ?", "0").find(General.class);
             adapter_BRVAH.setNewData(GeneralList);
             adapter_BRVAH.notifyDataSetChanged();

@@ -17,9 +17,9 @@ public class General extends DataSupport {
 
     //信息：头像 名字 性别 生卒年 势力 （籍贯）
 
-    private long addTime;
+    private int imageRes;
 
-    private int image;
+    //private long addTime;
 
     private String imagePath;
 
@@ -40,12 +40,10 @@ public class General extends DataSupport {
     //0代表不关注，0以上代表关注
     private int isConcerned;
 
-
+    //不设带参构造函数，仅初始化数据
     public General() {
-        //不设带参构造函数，仅初始化数据
-        // TODO: 2017/11/5 转化成具体时间
-        addTime = System.currentTimeMillis();
-        image = 0;
+        imageRes = 0;
+        //addTime = System.currentTimeMillis();
         imagePath = null;
         name = "暂无姓名";
         sex = 0;
@@ -55,17 +53,30 @@ public class General extends DataSupport {
         isConcerned = 0;
     }
 
-    public long getAddTime() {
-        return addTime;
+    //带参构造函数
+    public General(int imageRes, String imagePath,
+                   String name, int sex, String age, String country, String info, int isConcerned) {
+        this.imageRes = imageRes;
+        this.imagePath = imagePath;
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+        this.country = country;
+        this.info = info;
+        this.isConcerned = isConcerned;
     }
 
-    public int getImage() {
-        return image;
+    public int getImageRes() {
+        return imageRes;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setImageRes(int imageRes) {
+        this.imageRes = imageRes;
     }
+
+//    public long getAddTime() {
+//        return addTime;
+//    }
 
     public String getImagePath() {
         return imagePath;

@@ -32,14 +32,22 @@ public class GeneralAdapter_BRVAH extends BaseQuickAdapter<General, BaseViewHold
             helper.setImageDrawable(R.id.concerned, null);
         }
 
+        //优先考虑主动设定的图片
         if (item.getImagePath() != null) {
             String path=item.getImagePath();
             Bitmap bitmap = BitmapFactory.decodeFile(path);
             helper.setImageBitmap(R.id.general_image, bitmap);
             //bitmap.recycle();
+            if (bitmap == null) {
+                //如果照片在本地被删除了
+                helper.setImageResource(R.id.general_image, R.drawable.circle);
+            }
+        } else if (item.getImageRes() != 0){
+            helper.setImageResource(R.id.general_image, item.getImageRes());
         } else {
             helper.setImageResource(R.id.general_image, R.drawable.circle);
         }
+
 
         //ItemView传递id值
         helper.itemView.setTag(item.getid());

@@ -112,7 +112,8 @@
                 android:layout_below="@id/github_text"
                 android:layout_alignLeft="@id/github_text"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp">
+                android:layout_marginBottom="15dp"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -131,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="MaterialEditText : Material Design风格的文字输入框"
+                    android:text="MaterialEditText : MD风格的输入框"
                     android:textSize="14sp"/>
 
                 <TextView

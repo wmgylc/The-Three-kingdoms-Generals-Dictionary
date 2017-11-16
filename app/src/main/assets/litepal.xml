@@ -2,7 +2,7 @@
 <litepal>
     <dbname value="GeneralDataBase"></dbname>
 
-    <version value="18"></version>
+    <version value="19"></version>
 
     <list>
         <mapping class="com.example.test.DataBase.General"></mapping>

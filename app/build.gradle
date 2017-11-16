@@ -35,5 +35,5 @@ dependencies {
     api 'com.rengwuxian.materialedittext:library:2.1.4'
     api 'com.github.jd-alexander:LikeButton:0.2.3'
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
-
+    api 'com.getkeepsafe.taptargetview:taptargetview:1.10.0'
 }

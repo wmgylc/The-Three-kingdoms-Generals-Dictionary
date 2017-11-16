@@ -1,6 +1,8 @@
-package com.example.test;
+package com.example.test.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -23,6 +25,9 @@ import com.example.test.Adapter.ViewPagerAdapter;
 import com.example.test.DataBase.General;
 import com.example.test.Fragment.ConcernedGeneralFragment;
 import com.example.test.Fragment.GeneralFragment;
+import com.example.test.R;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 
 import org.litepal.LitePal;
 import org.litepal.crud.DataSupport;
@@ -32,6 +37,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 // TODO: 2017/11/8 将所有字符部分转为常量
+// TODO: 2017/11/15 用户引导
+// TODO: 2017/11/15 FAB点击动画 
+// TODO: 2017/11/15 SD卡根目录保存
 public class MainActivity extends AppCompatActivity {
 
     //搜索功能
@@ -60,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Log.d("TAG", "My Dream");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -69,6 +75,24 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tab_layout);
         floatingActionButton = findViewById(R.id.floating_action_button);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean tapTarget = preferences.getBoolean("TAP_TARGET", false);
+        if (!tapTarget) {
+            TapTargetView.showFor(this, TapTarget.forView(floatingActionButton, "点击创建新的将士!", "")
+                    .tintTarget(false), new TapTargetView.Listener() {
+                @Override
+                public void onTargetClick(TapTargetView view) {
+                    super.onTargetClick(view);
+                    Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
+                    intent.putExtra("SOURCE", "FAB");
+                    startActivity(intent);
+                }
+            });
+        }
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit();
+        editor.putBoolean("TAP_TARGET", true);
+        editor.apply();
 
         //Create Database;
         LitePal.getDatabase();
@@ -96,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 int id = (int) view.getTag();
-                //Toast.makeText(MainActivity.this, "" + id, Toast.LENGTH_SHORT).show();
                 General general = DataSupport.find(General.class, id);
                 String path = general.getImagePath();
                 String name = general.getName();
@@ -137,9 +160,7 @@ public class MainActivity extends AppCompatActivity {
                     floatingActionButton.show();
                 } else if (position == 1) {
                     floatingActionButton.hide();
-
-                    //绝对不能添加广播，卡顿的原因所在
-
+//                    绝对不能添加广播，卡顿的原因所在
 //                    Intent intent1 = new Intent("RefreshConcernedList");
 //                    sendBroadcast(intent1);
                 }
@@ -153,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //Log.d("TAG", "onResume");
         Intent intent = new Intent("Refresh");
         sendBroadcast(intent);
         Intent intent1 = new Intent("RefreshConcernedList");
@@ -161,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
 
         //SearchView -> InfoActivity -> SearchView
         if (searchView != null && tabLayout.getVisibility() == View.GONE) {
-            //Log.d("TAG", searchView.isShown() + "");
             try {
                 mSearchAutoComplete.setText("");
                 Method method  = searchView.getClass().getDeclaredMethod("onCloseClicked");
@@ -176,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //Log.d("TAG", "onCreateOptionsMenu");
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         MenuItem searchItem = menu.findItem(R.id.search);
 
