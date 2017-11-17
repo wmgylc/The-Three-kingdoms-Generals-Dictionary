@@ -69,7 +69,8 @@ public class GeneralFragment extends Fragment {
 
         adapter_BRVAH = new GeneralAdapter_BRVAH(R.layout.item, GeneralList);
         recyclerView.setAdapter(adapter_BRVAH);
-
+        adapter_BRVAH.openLoadAnimation();
+        adapter_BRVAH.isFirstOnly(false);
         adapter_BRVAH.setEmptyView(R.layout.empty_view, container);
 
         adapter_BRVAH.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
