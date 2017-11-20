@@ -19,15 +19,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.test.Activity.MainActivity;
-import com.example.test.Adapter.GeneralAdapter_BRVAH;
+import com.example.test.Adapter.GeneralAdapter;
 import com.example.test.DataBase.General;
 import com.example.test.Activity.InfoActivity;
 import com.example.test.R;
 
 import org.litepal.crud.DataSupport;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +36,7 @@ public class GeneralFragment extends Fragment {
 
     private Context mContext;
 
-    private GeneralAdapter_BRVAH adapter_BRVAH;
+    private GeneralAdapter adapter;
 
     private RecyclerView recyclerView;
 
@@ -67,13 +65,13 @@ public class GeneralFragment extends Fragment {
         editor.apply();
 
 
-        adapter_BRVAH = new GeneralAdapter_BRVAH(R.layout.item, GeneralList);
-        recyclerView.setAdapter(adapter_BRVAH);
-        adapter_BRVAH.openLoadAnimation();
-        adapter_BRVAH.isFirstOnly(false);
-        adapter_BRVAH.setEmptyView(R.layout.empty_view, container);
+        adapter = new GeneralAdapter(R.layout.item, GeneralList);
+        recyclerView.setAdapter(adapter);
+        adapter.openLoadAnimation();
+        adapter.isFirstOnly(false);
+        adapter.setEmptyView(R.layout.empty_view, container);
 
-        adapter_BRVAH.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 //获得id
@@ -102,9 +100,9 @@ public class GeneralFragment extends Fragment {
             }
         });
 
-        adapter_BRVAH.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
+        adapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, final int position) {
+            public boolean onItemLongClick(BaseQuickAdapter adapter1, View view, final int position) {
                 final int id = (int) view.getTag();
                 final int concerned = DataSupport.find(General.class, id).getConcerned();
                 final Intent intent = new Intent("RefreshConcernedList");
@@ -126,8 +124,8 @@ public class GeneralFragment extends Fragment {
                                     // TODO: 2017/11/8 局部刷新
                                     case 1:
                                         GeneralList.remove(position);
-                                        adapter_BRVAH.notifyItemRemoved(position);
-                                        adapter_BRVAH.notifyItemRangeChanged(position, adapter_BRVAH.getItemCount());
+                                        adapter.notifyItemRemoved(position);
+                                        adapter.notifyItemRangeChanged(position, adapter.getItemCount());
                                         DataSupport.delete(General.class, id);
                                         getContext().sendBroadcast(intent);
                                         break;
@@ -167,8 +165,8 @@ public class GeneralFragment extends Fragment {
     public void notifyChange() {
         //默认按照id排序，不设条件搜索
         GeneralList = DataSupport.findAll(General.class);
-        adapter_BRVAH.setNewData(GeneralList);
-        adapter_BRVAH.notifyDataSetChanged();
+        adapter.setNewData(GeneralList);
+        adapter.notifyDataSetChanged();
         //将焦点移动到最下方 && 默认新添加的都在最下方，如果后期加入过滤方式就需要判断
         //recyclerView.scrollToPosition(GeneralList.size() - 1);
     }

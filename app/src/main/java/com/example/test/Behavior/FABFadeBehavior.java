@@ -14,6 +14,8 @@ import java.util.jar.Attributes;
  * Created by admin on 2017/11/8.
  */
 
+//FAB的动画效果，下拉消失，上拉展开
+
 public class FABFadeBehavior extends FloatingActionButton.Behavior {
 
     public FABFadeBehavior(Context context, AttributeSet attrs) {

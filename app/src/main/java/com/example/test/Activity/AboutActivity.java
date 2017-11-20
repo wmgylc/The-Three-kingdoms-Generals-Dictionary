@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import com.example.test.R;
 
+//介绍APP页面
 
 public class AboutActivity extends AppCompatActivity {
 

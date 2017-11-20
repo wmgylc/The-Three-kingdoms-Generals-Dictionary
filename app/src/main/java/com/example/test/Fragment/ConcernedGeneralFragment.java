@@ -12,13 +12,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.test.Adapter.GeneralAdapter_BRVAH;
+import com.example.test.Adapter.GeneralAdapter;
 import com.example.test.DataBase.General;
 import com.example.test.Activity.InfoActivity;
 import com.example.test.R;
@@ -35,7 +34,7 @@ public class ConcernedGeneralFragment extends Fragment {
 
     private Context mContext;
 
-    private GeneralAdapter_BRVAH adapter_BRVAH;
+    private GeneralAdapter adapter;
 
     private List<General> GeneralList = DataSupport.where("isConcerned > ?", "0").find(General.class);
 
@@ -47,13 +46,13 @@ public class ConcernedGeneralFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
-        adapter_BRVAH = new GeneralAdapter_BRVAH(R.layout.item, GeneralList);
-        recyclerView.setAdapter(adapter_BRVAH);
-        adapter_BRVAH.openLoadAnimation();
-        adapter_BRVAH.isFirstOnly(false);
-        adapter_BRVAH.setEmptyView(R.layout.empty_view, container);
+        adapter = new GeneralAdapter(R.layout.item, GeneralList);
+        recyclerView.setAdapter(adapter);
+        adapter.openLoadAnimation();
+        adapter.isFirstOnly(false);
+        adapter.setEmptyView(R.layout.empty_view, container);
 
-        adapter_BRVAH.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 int id = (int) view.getTag();
@@ -81,9 +80,9 @@ public class ConcernedGeneralFragment extends Fragment {
             }
         });
 
-        adapter_BRVAH.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
+        adapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+            public boolean onItemLongClick(BaseQuickAdapter adapter1, View view, int position) {
                 final int id = (int) view.getTag();
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
                         .setCancelable(true)
@@ -96,8 +95,8 @@ public class ConcernedGeneralFragment extends Fragment {
                                 general.save();
                                 GeneralList = DataSupport.where("isConcerned > ?", "0").find(General.class);
                                 //Log.d("TAG", "onResume" + GeneralList.size());
-                                adapter_BRVAH.setNewData(GeneralList);
-                                adapter_BRVAH.notifyDataSetChanged();
+                                adapter.setNewData(GeneralList);
+                                adapter.notifyDataSetChanged();
                                 Intent intent = new Intent("Refresh");
                                 //通知将士列表刷新
                                 getContext().sendBroadcast(intent);
@@ -115,9 +114,9 @@ public class ConcernedGeneralFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
 
+    //注册广播
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -128,17 +127,17 @@ public class ConcernedGeneralFragment extends Fragment {
         context.registerReceiver(refreshConcernedListReceiver, intentFilter);
     }
 
-
-
+    //受到广播后刷新关注列表
     public class RefreshConcernedListReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             GeneralList = DataSupport.where("isConcerned > ?", "0").find(General.class);
-            adapter_BRVAH.setNewData(GeneralList);
-            adapter_BRVAH.notifyDataSetChanged();
+            adapter.setNewData(GeneralList);
+            adapter.notifyDataSetChanged();
         }
     }
 
+    //销毁广播
     @Override
     public void onDetach() {
         super.onDetach();

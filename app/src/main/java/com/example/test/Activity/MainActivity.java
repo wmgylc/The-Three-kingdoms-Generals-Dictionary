@@ -75,7 +75,9 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tab_layout);
         floatingActionButton = findViewById(R.id.floating_action_button);
+        setSupportActionBar(toolbar);
 
+        //只有第一次才会显示用户引导
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean tapTarget = preferences.getBoolean("TAP_TARGET", false);
         if (!tapTarget) {
@@ -94,17 +96,17 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean("TAP_TARGET", true);
         editor.apply();
 
-        //Create Database;
+        //Create Database
         LitePal.getDatabase();
 
-        setSupportActionBar(toolbar);
-
+        // TODO: 2017/11/20 搜索无法下拉
         //搜索的RecyclerView
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         adapter = new SearchAdapter(R.layout.search_item, generalList);
         recyclerView.setAdapter(adapter);
 
+        //ViewPager
         GeneralFragment general = new GeneralFragment();
         ConcernedGeneralFragment concernedGeneral = new ConcernedGeneralFragment();
         fragmentList.add(general);
@@ -116,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setOffscreenPageLimit(2);
 
+        //搜索出的结果的点击事件
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -142,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //展开一个新建窗口
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //每次回到MainActivity就进行广播更新页面数据
     @Override
     protected void onResume() {
         super.onResume();
@@ -193,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //searchView的具体点击事件
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
@@ -231,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    //点击about进入APP详情页
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -241,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //对搜索结果进行过滤，支持name，info，country的模糊搜索
     private List<General> filter(List<General> generals, String query) {
         final List<General> filteredList = new ArrayList<>();
 
@@ -275,6 +283,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //在searchView展开的情况下逻辑需要修改
     @Override
     public void onBackPressed() {
         Log.d("TAG", searchView.isShown() + "");

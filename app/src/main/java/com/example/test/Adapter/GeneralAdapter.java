@@ -14,9 +14,11 @@ import java.util.List;
  * Created by admin on 2017/11/12.
  */
 
-public class GeneralAdapter_BRVAH extends BaseQuickAdapter<General, BaseViewHolder> {
+//使用了开源RecyclerView框架BRAVH
 
-    public GeneralAdapter_BRVAH(int layoutResId, List<General> data) {
+public class GeneralAdapter extends BaseQuickAdapter<General, BaseViewHolder> {
+
+    public GeneralAdapter(int layoutResId, List<General> data) {
         super(layoutResId, data);
     }
 

@@ -39,6 +39,8 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.litepal.crud.DataSupport;
 
+//人士详情页面
+
 // TODO: 2017/11/14 添加内容后滚动到对应位置
 public class InfoActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -87,9 +89,9 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
 
         initData();
 
+        //初始化信息，此时不new对象，只在确认保存的时候修改
         Intent intent = getIntent();
         source = intent.getStringExtra("SOURCE");
-
         if (source.equals("FAB")) {
             //concern不用判断，默认就是0
             nameEditText.setHint("暂无姓名");
@@ -116,7 +118,6 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 floatingActionButton.setImageResource(R.drawable.star_on);
             }
-
             String name_temp = intent.getStringExtra("NAME");
             if (name_temp.equals("暂无姓名")) {
                 nameEditText.setHint("暂无姓名");
@@ -141,12 +142,11 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 moreInfoEditText.setText(info_temp);
             }
-
             buttons[intent.getIntExtra("SEX", 0)].setChecked(true);
             currentId = intent.getIntExtra("ID", 0);
         }
 
-        //用来记录文本内容是否发生改变
+        //用来记录文本内容是否发生改变，从而决定back时是否要弹出“保存修改”的窗口
         isConcerned_former = isConcerned;
         name_former = nameEditText.getText().toString();
         checkedSex_former = radioGroup.getCheckedRadioButtonId();
@@ -188,6 +188,7 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         editor.apply();
     }
 
+    //保存的逻辑
     public void save() {
 
         switch (radioGroup.getCheckedRadioButtonId()) {
@@ -202,8 +203,7 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             default:
         }
-
-        //如果来源是REC的话，已经new出过数据，这时候根据id找到这个数据进行更新。如果来源是FAB的话，新建一个数据。
+        //如果来源是REC的话，数据已经存在，这时候根据id找到这个数据进行更新。如果来源是FAB的话，新建一个数据。
         if (source.equals("REC")) {
             General general_current = DataSupport.find(General.class, currentId);
             String name = TextUtils.isEmpty(nameEditText.getText())? "暂无姓名" : nameEditText.getText().toString();
@@ -235,7 +235,7 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-    // TODO: 2017/11/11 使用真实路径传输图片，如果原图片删除，就会导致无法显示
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -334,6 +334,7 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //重点：将URI转换成图片的真实路径
     private String handleImage(Intent data) {
         imagePath = null;
         Uri uri = data.getData();
@@ -379,6 +380,7 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //back的逻辑根据是否修改数据改变
     @Override
     public void onBackPressed() {
         //注意区分hint和text的区别
@@ -415,6 +417,5 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
         builder.show();
-
     }
 }
