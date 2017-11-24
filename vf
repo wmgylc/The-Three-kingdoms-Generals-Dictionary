@@ -1,0 +1,53 @@
+[33mcommit 6ba88299602254e9d0bf75126889b7f7f0c51f7f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: wmgylc <361628056@qq.com>
+Date:   Fri Nov 24 17:39:37 2017 +0800
+
+    优化了详情页的交互
+
+[33mcommit 7f266072065256b326ceec4abc4adf2b4cf64500[m
+Author: wmgylc <361628056@qq.com>
+Date:   Fri Nov 24 00:49:41 2017 +0800
+
+    修复了搜索的一部分BUG
+
+[33mcommit dd5fa1b7175b2573746702b075d356703916071f[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: wmgylc <361628056@qq.com>
+Date:   Mon Nov 20 15:40:27 2017 +0800
+
+    添加了一些注释
+
+[33mcommit 89f125a29e2b425c1200baf246b9de7136c77958[m
+Author: wmgylc <361628056@qq.com>
+Date:   Fri Nov 17 22:57:21 2017 +0800
+
+    添加了RecyclerView动画 & 微改UI
+
+[33mcommit 8b9e63187ef805976ada0411de971c7c5f1d8363[m
+Author: wmgylc <361628056@qq.com>
+Date:   Thu Nov 16 23:57:28 2017 +0800
+
+    添加了FAB引导 & 初始人物
+
+[33mcommit c1ba124d016ce5d78078d8e64f07a002bf8f0bf7[m
+Author: wmgylc <361628056@qq.com>
+Date:   Mon Nov 13 00:57:32 2017 +0800
+
+    全面使用BRVAH，优化性能，优化UI.
+
+[33mcommit d7fef064510d4ff92fb58a0decd3af0b27743c8d[m
+Author: wmgylc <361628056@qq.com>
+Date:   Sat Nov 11 00:53:58 2017 +0800
+
+    解决了图片过大崩溃 & 碎片中注销广播
+
+[33mcommit efd36e3c40083d714e2939c5751d9c396a41a383[m
+Author: wmgylc <wmgylc@gmail.com>
+Date:   Sat Nov 11 00:51:28 2017 +0800
+
+    Create README.md
+
+[33mcommit e36401037d4d9a8fa044d9cdd3378aeb05836370[m
+Author: wmgylc <wmgylc@gmail.com>
+Date:   Sat Nov 11 00:51:10 2017 +0800
+
+    Initial commit
