@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Three-Kingdoms-Generals-Dictionary.iml" filepath="$PROJECT_DIR$/Three-Kingdoms-Generals-Dictionary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/The-Three-kingdoms-Generals-Dictionary.iml" filepath="$PROJECT_DIR$/The-Three-kingdoms-Generals-Dictionary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

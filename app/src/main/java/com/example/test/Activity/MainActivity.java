@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 int id = (int) view.getTag();
                 General general = DataSupport.find(General.class, id);
                 String path = general.getImagePath();
+                int image = general.getImageRes();
                 String name = general.getName();
                 int sex = general.getSex();
                 String age = general.getAge();
@@ -132,7 +133,8 @@ public class MainActivity extends AppCompatActivity {
                 String info = general.getInfo();
                 int concerned = general.getConcerned();
                 Intent intent = new Intent(MainActivity.this, InfoActivity.class);
-                intent.putExtra("IMAGE", path);
+                intent.putExtra("IMAGE_URI", path);
+                intent.putExtra("IMAGE_RES", image);
                 intent.putExtra("NAME", name);
                 intent.putExtra("SEX", sex);
                 intent.putExtra("AGE", age);

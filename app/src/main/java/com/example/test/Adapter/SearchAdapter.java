@@ -30,7 +30,10 @@ public class SearchAdapter extends BaseQuickAdapter<General, BaseViewHolder>{
             String path=item.getImagePath();
             Bitmap bitmap = BitmapFactory.decodeFile(path);
             helper.setImageBitmap(R.id.search_general_image, bitmap);
-        } else {
+        } else if (item.getImageRes() != 0) {
+            helper.setImageResource(R.id.search_general_image, item.getImageRes());
+        }
+        else {
             helper.setImageResource(R.id.search_general_image, R.drawable.circle);
         }
         if (item.getConcerned() > 0) {
