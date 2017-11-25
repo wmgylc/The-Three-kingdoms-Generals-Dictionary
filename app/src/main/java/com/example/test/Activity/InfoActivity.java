@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
@@ -16,6 +17,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -68,19 +70,21 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
 
     private RadioButton[] buttons = new RadioButton[3];
 
-//    private String name_former;
-//
-//    private int checkedSex_former;
-//
-//    private String age_former;
-//
-//    private String country_former;
-//
-//    private String info_former;
-//
-//    private int isConcerned_former;
+    private String name_former;
+
+    private int checkedSex_former;
+
+    private String age_former;
+
+    private String country_former;
+
+    private String info_former;
+
+    private int isConcerned_former;
 
     private String imagePath = null;
+
+    private boolean checked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,12 +151,12 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         //用来记录文本内容是否发生改变，从而决定back时是否要弹出“保存修改”的窗口
-//        isConcerned_former = isConcerned;
-//        name_former = nameEditText.getText().toString();
-//        checkedSex_former = radioGroup.getCheckedRadioButtonId();
-//        age_former = ageEditText.getText().toString();
-//        country_former = countryEditText.getText().toString();
-//        info_former = moreInfoEditText.getText().toString();
+        isConcerned_former = isConcerned;
+        name_former = nameEditText.getText().toString();
+        checkedSex_former = radioGroup.getCheckedRadioButtonId();
+        age_former = ageEditText.getText().toString();
+        country_former = countryEditText.getText().toString();
+        info_former = moreInfoEditText.getText().toString();
     }
 
     public void initData() {
@@ -264,6 +268,9 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
                     builder.show();
                 } else {
                     save();
+                    if (checked) {
+                        Toast.makeText(this, "人物信息已修改", Toast.LENGTH_SHORT).show();
+                    }
                     finish();
                 }
                 return true;
@@ -402,19 +409,18 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onBackPressed() {
         //注意区分hint和text的区别
-//        String name = nameEditText.getText().toString();
-//        String age = ageEditText.getText().toString();
-//        int checkedSex = radioGroup.getCheckedRadioButtonId();
-//        String country = countryEditText.getText().toString();
-//        String info = moreInfoEditText.getText().toString();
-//
-//        //如果什么都没修改，直接退出
-//        if (isConcerned_former == isConcerned && name.equals(name_former) && age.equals(age_former) && checkedSex == checkedSex_former
-//                && country.equals(country_former) && info.equals(info_former)
-//                && imagePath == null) { //如果imagePath == null，说明此次没有调用相册，那么也不可能更新图片
-//            finish();
-//            return;
-//        }
+        String name = nameEditText.getText().toString();
+        String age = ageEditText.getText().toString();
+        int checkedSex = radioGroup.getCheckedRadioButtonId();
+        String country = countryEditText.getText().toString();
+        String info = moreInfoEditText.getText().toString();
+
+        if (isConcerned_former == isConcerned && name.equals(name_former) && age.equals(age_former) && checkedSex == checkedSex_former
+                && country.equals(country_former) && info.equals(info_former)
+                && imagePath == null) { //如果imagePath == null，说明此次没有调用相册，那么也不可能更新图片
+        } else {
+            checked = true;
+        }
 //
 //        //否则弹出提示框
 //        AlertDialog.Builder builder = new AlertDialog.Builder(this)
@@ -448,6 +454,9 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
             builder.show();
         } else {
             save();
+            if (checked) {
+                Toast.makeText(this, "人物信息已修改", Toast.LENGTH_SHORT).show();
+            }
             finish();
         }
     }

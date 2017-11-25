@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -82,7 +83,7 @@ public class ConcernedGeneralFragment extends Fragment {
 
         adapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(BaseQuickAdapter adapter1, View view, int position) {
+            public boolean onItemLongClick(BaseQuickAdapter adapter1, final View view, int position) {
                 final int id = (int) view.getTag();
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
                         .setCancelable(true)
@@ -93,6 +94,9 @@ public class ConcernedGeneralFragment extends Fragment {
                                 General general = DataSupport.find(General.class, id);
                                 general.setConcerned(0);
                                 general.save();
+                                Snackbar.make(view, "已经移除出关注列表", Snackbar.LENGTH_SHORT)
+                                        .setAction("知道了", null)
+                                        .show();
                                 GeneralList = DataSupport.where("isConcerned > ?", "0").find(General.class);
                                 //Log.d("TAG", "onResume" + GeneralList.size());
                                 adapter.setNewData(GeneralList);
