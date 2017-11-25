@@ -68,8 +68,6 @@ public class GeneralFragment extends Fragment {
 
         adapter = new GeneralAdapter(R.layout.item, GeneralList);
         recyclerView.setAdapter(adapter);
-        adapter.openLoadAnimation();
-        adapter.isFirstOnly(false);
         adapter.setEmptyView(R.layout.empty_view, container);
 
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -157,12 +155,56 @@ public class GeneralFragment extends Fragment {
     }
 
     private void initData() {
-        General general = new General(R.drawable.liubei, null, "刘备", 1, "161年－223年", "蜀国",
+        General general1 = new General(R.drawable.liubei, null, "刘备", 1, "161年－223年", "蜀国",
                 "刘备是汉朝的宗室，汉中山靖王刘胜的后代。章武三年（223年），刘备病逝于白帝城，终年63岁，谥号昭烈皇帝，庙号烈祖（一说太宗） ，葬惠陵。后世有众多文艺作品以其为主角，在成都武侯祠有昭烈庙为纪念。"
-        , 0);
-        general.save();
-        GeneralList.add(general);
-        //notifyChange();
+                , 0);
+        General general2 = new General(R.drawable.caocao, null, "曹操", 1, "155年－220年", "魏国",
+                "东汉末年，天下大乱，曹操以汉天子的名义征讨四方，对内消灭二袁、吕布、刘表、韩遂等割据势力，对外降服南匈奴、乌桓、鲜卑等，统一了中国北方，并实行一系列政策恢复经济生产和社会秩序，奠定了曹魏立国的基础。曹操在世时，担任东汉丞相，后为魏王，去世后谥号为武王。",
+                0);
+        General general3 = new General(R.drawable.diaochan, null, "貂蝉", 2, "生卒年不详", "第三方势力",
+                "舍身报国的可敬女子，她为了挽救天下黎民，为了推翻权臣董卓的荒淫统治，受王允所托，上演了可歌可泣的连环计（连环美人计），周旋于两个男人之间，成功的离间了董卓和吕布，最终吕布将董卓杀死，结束了董卓专权的黑暗时期。",
+                0);
+        General general4 = new General(R.drawable.guanyu, null, "关羽", 1, "？－219年", "蜀国",
+                "因本处势豪倚势凌人，关羽杀之而逃难江湖。闻涿县招军破贼，特来应募。与刘备、张飞桃园结义，羽居其次。使八十二斤青龙偃月刀随刘备东征西讨。虎牢关温酒斩华雄，屯土山降汉不降曹。为报恩斩颜良、诛文丑，解曹操白马之围。后得知刘备音信，过五关斩六将，千里寻兄。刘备平定益州后，封关羽为五虎大将之首，督荆州事。羽起军攻曹，放水淹七军，威震华夏。围樊城右臂中箭，幸得华佗医治，刮骨疗伤。但未曾提防东吴袭荆州，关羽父子败走麦城，突围中被捕，不屈遭害。",
+                0);
+        General general5 = new General(R.drawable.sunquan, null, "孙权", 1, "182年－252年", "吴国",
+                "孙权19岁就继承了其兄孙策之位，力据江东，击败了黄祖。后东吴联合刘备，在赤壁大战击溃了曹操军。东吴后来又和曹操军在合肥附近鏖战，并从刘备手中夺回荆州、杀死关羽、大破刘备的讨伐军。曹丕称帝后孙权先向北方称臣，后自己建吴称帝，迁都建业。\n",
+                0);
+        General general6 = new General(R.drawable.zhangfei, null, "张飞", 1, "？－221年", "蜀国",
+                "与刘备和关羽桃园结义，张飞居第三。随刘备征讨黄巾，刘备终因功被朝廷受予平原相，后张飞鞭挞欲受赂的督邮。十八路诸侯讨董时，三英战吕布，其勇为世人所知。曹操以二虎竞食之计迫刘备讨袁术，刘备以张飞守徐州，诫禁酒，但还是因此而鞭打曹豹招致吕布东袭。刘备反曹后，反用劫寨计擒曹将刘岱，为刘备所赞。徐州终为曹操所破，张飞与刘备失散，占据古城。误以为降汉的关羽投敌，差点一矛将其杀掉。曹操降荊州后引骑追击，刘备败逃，张飞引二十余骑，立马于长阪桥，吓退曹军数十里。庞统死后刘备召其入蜀，张飞率军沿江而上，智擒巴郡太守严颜并生获之，张飞壮而释放。于葭萌关和马超战至夜间，双方点灯，终大战数百回合。瓦口关之战时扮作醉酒，智破张郃。后封为蜀汉五虎大将。及关羽卒，张飞悲痛万分，每日饮酒鞭打部下，导致为帐下将张达、范强所杀，他们持其首顺流而奔孙权。",
+                0);
+        General general7 = new General(R.drawable.zhaoyun, null, "赵云", 1, "？－299年", "蜀国",
+                "　初为袁绍将，后见绍不仁，于磐河战退绍将文丑，救瓒并投之。后又刺杀麹义。先主依讬瓒，云与之为田楷拒袁绍。后与先主执手泣别。后瓒败，云流浪卧牛山，与先主见，投之。当阳长阪恶战，云怀抱幼主，七进七出，杀曹军五十余将。先主娶孙夫人，云相随。及征蜀，云随诸葛亮、张飞等人沿江而上。及蜀平，又往征汉中，退曹大军。关羽亡，先主怒欲伐吴，云劝止，不从。后先主崩，云随亮南征、北伐，单骑退追兵。七年卒，后主哭倒于龙床上，谥云顺平侯、追大将军。\n",
+                0);
+        General general8 = new General(R.drawable.zhouyu, null, "周瑜", 1, "175年－210年", "吴国",
+                "　偏将军、南郡太守。自幼与孙策交好，策离袁术讨江东，瑜引兵从之。为中郎将，孙策相待甚厚，又同娶二乔。策临终，嘱弟权曰：“外事不决，可问周瑜”。瑜奔丧还吴，与张昭共佐权，并荐鲁肃等，掌军政大事。赤壁战前，瑜自鄱阳归。力主战曹，后于群英会戏蒋干、怒打黄盖行诈降计、后火烧曹军，大败之。后下南郡与曹仁相持，中箭负伤，与诸葛亮较智斗，定假涂灭虢等计，皆为亮破，后气死于巴陵，年三十六岁。临终，上书荐鲁肃代其位，权为其素服吊丧。",
+                0);
+        General general9 = new General(R.drawable.zhugeliang, null, "诸葛亮", 1, "181年－234年", "蜀国",
+                "　人称卧龙先生，有经天纬地之才，鬼神不测之机。刘皇叔三顾茅庐，遂允出山相助。曾舌战群儒、借东风、智算华容、三气周瑜，辅佐刘备于赤壁之战大败曹操，更取得荆州为基本。后奉命率军入川，于定军山智激老黄忠，斩杀夏侯渊，败走曹操，夺取汉中。刘备伐吴失败，受遗诏托孤，安居平五路，七纵平蛮，六出祁山，鞠躬尽瘁，死而后已。其手摇羽扇，运筹帷幄的潇洒形象，千百年来已成为人们心中“智慧”的代名词。",
+                0);
+        General general10 = new General(R.drawable.lusu, null, "鲁肃", 1, "172年－217年", "吴国",
+                "鲁肃为周瑜的好友，在孙权继位后为周瑜推荐，仕于孙权，为孙权谋划战略，深受器重。赤壁之战时，鲁肃力主抗曹，出使联合刘备，并协助诸葛亮、周瑜说服孙权。鲁肃为人忠厚老实，不忍周瑜陷害诸葛亮，多次协助诸葛亮脱险。赤壁战后，鲁肃在诸葛亮的设计下，成为保人，将荆州“借”予刘备，此后多次讨要不成，处于两难的境地。周瑜去世后，鲁肃代周瑜成为水军都督，数年后病逝。",
+                0);
+        general1.save();
+        general2.save();
+        general3.save();
+        general4.save();
+        general5.save();
+        general6.save();
+        general7.save();
+        general8.save();
+        general9.save();
+        general10.save();
+        GeneralList.add(general1);
+        GeneralList.add(general2);
+        GeneralList.add(general3);
+        GeneralList.add(general4);
+        GeneralList.add(general5);
+        GeneralList.add(general6);
+        GeneralList.add(general7);
+        GeneralList.add(general8);
+        GeneralList.add(general9);
+        GeneralList.add(general10);
     }
 
 
