@@ -1,5 +1,6 @@
 package com.example.test.Fragment;
 
+import android.app.ActivityOptions;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,7 +16,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -65,6 +68,20 @@ public class GeneralFragment extends Fragment {
         editor.putBoolean("CREATE", true);
         editor.apply();
 
+        recyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("TAG", "onclick");
+            }
+        });
+
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+               // Log.d("TAG", "ontouch" + view.getId());
+                return false;
+            }
+        });
 
         adapter = new GeneralAdapter(R.layout.item, GeneralList);
         recyclerView.setAdapter(adapter);
@@ -95,7 +112,7 @@ public class GeneralFragment extends Fragment {
                 intent.putExtra("CONCERNED", concerned);
                 intent.putExtra("SOURCE", "REC");
                 intent.putExtra("ID", id);
-                startActivity(intent);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
             }
         });
 
@@ -229,4 +246,6 @@ public class GeneralFragment extends Fragment {
         super.onDetach();
         mContext.unregisterReceiver(refreshReceiver);
     }
+
+
 }

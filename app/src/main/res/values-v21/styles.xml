@@ -3,6 +3,7 @@
 
     <style name="InfoActivityTheme" parent="AppTheme">
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowEnterTransition">@transition/enter_transition</item>
     </style>
 
 </resources>

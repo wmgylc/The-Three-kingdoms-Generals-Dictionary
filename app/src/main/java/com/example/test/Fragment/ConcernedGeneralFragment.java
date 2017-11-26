@@ -1,5 +1,6 @@
 package com.example.test.Fragment;
 
+import android.app.ActivityOptions;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -77,7 +78,7 @@ public class ConcernedGeneralFragment extends Fragment {
                 intent.putExtra("CONCERNED", concerned);
                 intent.putExtra("SOURCE", "REC");
                 intent.putExtra("ID", id);
-                startActivity(intent);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
             }
         });
 

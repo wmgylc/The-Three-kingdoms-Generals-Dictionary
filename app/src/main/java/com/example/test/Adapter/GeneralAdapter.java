@@ -2,6 +2,7 @@ package com.example.test.Adapter;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -24,6 +25,7 @@ public class GeneralAdapter extends BaseQuickAdapter<General, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, General item) {
+        Log.d("TAG", "convert" + item.getName());
         helper.setText(R.id.name, item.getName())
                 .setText(R.id.country, item.getCountry())
                 .setText(R.id.info, item.getInfo());
@@ -49,9 +51,10 @@ public class GeneralAdapter extends BaseQuickAdapter<General, BaseViewHolder> {
         } else {
             helper.setImageResource(R.id.general_image, R.drawable.circle);
         }
-
-
         //ItemView传递id值
         helper.itemView.setTag(item.getid());
+        helper.itemView.setClickable(true);
     }
+
+
 }
