@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    tools:context="com.example.test.Activity.GameActivity"
+    >
+
+    <Button
+        android:id="@+id/buttonSwipeLeft"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:visibility="gone"
+        android:text="left"/>
+
+
+    <link.fls.swipestack.SwipeStack
+        android:id="@+id/swipeStack"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttonSwipeLeft"
+        android:padding="@dimen/padding_swipestack"
+        app:stack_rotation="10"
+        app:stack_size="3"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+
+
+    </RelativeLayout>
+
+

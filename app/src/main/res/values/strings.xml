@@ -3,4 +3,5 @@
     <string name="info_notification">您可以在带有下划线的输入框和各类控件中修改内容，并加以保存。点击图片可以拍摄或选择头像。这条信息卡片只会出现一次。</string>
     <string name="app_introduction1">三国人物辞典是一款满足安卓期中项目需求，遵守Material Design设计原则的APP。</string>
     <string name="app_introduction2">由于程序员水平问题，不能做到完美遵守Material Design设计原则，并且在一些代码的编写上存在不足，正在不断学习改进中。</string>
+    <string name="title_activity_game">GameActivity</string>
 </resources>

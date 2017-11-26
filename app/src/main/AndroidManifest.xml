@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +22,8 @@
         </activity>
         <activity
             android:name=".Activity.InfoActivity"
-            android:theme="@style/InfoActivityTheme" />
+            android:theme="@style/InfoActivityTheme"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -34,6 +36,13 @@
         </provider>
 
         <activity android:name=".Activity.AboutActivity" />
+        <service android:name=".Activity.MyService"/>
+
+        <activity
+            android:name=".Activity.GameActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_game"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -1,8 +1,11 @@
 package com.example.test.Activity;
 
 import android.app.ActivityOptions;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -89,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     super.onTargetClick(view);
                     Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
                     intent.putExtra("SOURCE", "FAB");
-                    startActivity(intent);
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
                 }
             });
         }
@@ -145,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("CONCERNED", concerned);
                 intent.putExtra("SOURCE", "REC");
                 intent.putExtra("ID", id);
-                startActivity(intent);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
             }
         });
 
@@ -171,11 +174,15 @@ public class MainActivity extends AppCompatActivity {
 //                    绝对不能添加广播，卡顿的原因所在
 //                    Intent intent1 = new Intent("RefreshConcernedList");
 //                    sendBroadcast(intent1);
+                    // TODO: 2017/11/26 如果fab在左列表消失后右列表可以刷出 
                 }
             }
             @Override
             public void onPageScrollStateChanged(int state) {}
         });
+
+        Intent intent = new Intent(this, MyService.class);
+        startService(intent);
 
     }
 
@@ -248,6 +255,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.about:
                 Intent intent = new Intent(MainActivity.this, AboutActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.game:
+                Intent intent1 = new Intent(this, GameActivity.class);
+                startActivity(intent1);
+                break;
+            default:
         }
         return super.onOptionsItemSelected(item);
     }
@@ -306,4 +319,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent intent = new Intent(this, MyService.class);
+        stopService(intent);
+    }
 }

@@ -6,6 +6,7 @@
         android:slideEdge="bottom">
         <targets>
             <target android:targetId="@id/info_item_card_view"/>
+            <target android:targetId="@id/InfoActivity_card"/>
         </targets>
     </slide>
     <slide

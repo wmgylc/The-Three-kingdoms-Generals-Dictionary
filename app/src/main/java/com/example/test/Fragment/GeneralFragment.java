@@ -42,8 +42,6 @@ public class GeneralFragment extends Fragment {
 
     private GeneralAdapter adapter;
 
-    private RecyclerView recyclerView;
-
     private List<General> GeneralList = DataSupport.findAll(General.class);
 
     private RefreshReceiver refreshReceiver;
@@ -56,7 +54,8 @@ public class GeneralFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
+        View view = inflater.inflate(R.layout.recycler_view, container, false);
+        final RecyclerView recyclerView = view.findViewById(R.id.recycler_view_rv);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
 
@@ -68,24 +67,17 @@ public class GeneralFragment extends Fragment {
         editor.putBoolean("CREATE", true);
         editor.apply();
 
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("TAG", "onclick");
-            }
-        });
+        adapter = new GeneralAdapter(R.layout.item, GeneralList);
+        recyclerView.setAdapter(adapter);
+        adapter.setEmptyView(R.layout.empty_view, container);
 
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-               // Log.d("TAG", "ontouch" + view.getId());
+                recyclerView.stopScroll();
                 return false;
             }
         });
-
-        adapter = new GeneralAdapter(R.layout.item, GeneralList);
-        recyclerView.setAdapter(adapter);
-        adapter.setEmptyView(R.layout.empty_view, container);
 
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

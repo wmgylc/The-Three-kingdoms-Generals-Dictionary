@@ -25,7 +25,7 @@ public class GeneralAdapter extends BaseQuickAdapter<General, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, General item) {
-        Log.d("TAG", "convert" + item.getName());
+        //Log.d("TAG", "convert" + item.getName());
         helper.setText(R.id.name, item.getName())
                 .setText(R.id.country, item.getCountry())
                 .setText(R.id.info, item.getInfo());

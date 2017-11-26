@@ -45,7 +45,9 @@ public class ConcernedGeneralFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
+
+        View view = inflater.inflate(R.layout.recycler_view, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_rv);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
         adapter = new GeneralAdapter(R.layout.item, GeneralList);
@@ -114,11 +116,6 @@ public class ConcernedGeneralFragment extends Fragment {
         });
 
         return recyclerView;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 
     //注册广播
